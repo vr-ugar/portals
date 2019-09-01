@@ -20,35 +20,33 @@ update: function () {
 	el.addEventListener('mouseenter', () => {
 		flag = true;
 	if (el.parentEl.getAttribute('visible')) {
-		el.object3D.scale.x = el.object3D.scale.x * 2;
-		el.object3D.scale.y = el.object3D.scale.y * 2;
-		el.object3D.scale.z = el.object3D.scale.z * 2;
 		setTimeout(changeScene, 800);
-    timer = setInterval(function () {
+        timer = setInterval(function () {
 	    sky.components.material.material.opacity = sky.components.material.material.opacity * 0.9;
+		el.object3D.scale.x = el.object3D.scale.x * 1.1;
+		el.object3D.scale.y = el.object3D.scale.y * 1.1;
+		el.object3D.scale.z = el.object3D.scale.z * 1.1;
 	    if (sky.components.material.material.opacity < 0.1) {
 		    clearInterval(timer);
 		    sky.components.material.material.opacity = 1;
 	    } 
-    }, 100);
+    }, 50);
 	}
       });
 	el.addEventListener('mouseleave', () => {
 	flag = false;
-	if (el.parentEl.getAttribute('visible')) {
-		el.object3D.scale.x = el.object3D.scale.x * 0.5;
-		el.object3D.scale.y = el.object3D.scale.y * 0.5;
-		el.object3D.scale.z = el.object3D.scale.z * 0.5;
+		el.object3D.scale.x = 1;
+		el.object3D.scale.y = 1;
+		el.object3D.scale.z = 1;
 	    clearInterval(timer);
 	    sky.components.material.material.opacity = 1;
-	}
       });
       function changeScene() {
 	  if (flag) {
 		flag = false;
-		el.object3D.scale.x = el.object3D.scale.x * 0.5;
-		el.object3D.scale.y = el.object3D.scale.y * 0.5;
-		el.object3D.scale.z = el.object3D.scale.z * 0.5;
+		el.object3D.scale.x = 1;
+		el.object3D.scale.y = 1;
+		el.object3D.scale.z = 1;
 
 	// get the entity out of the way
 	parel.object3D.scale.x = 0;
