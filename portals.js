@@ -7,14 +7,20 @@ schema: {
 init: function () {
     var el = this.el;
 	var data = this.data;
-    el.setAttribute('animation', {property: 'rotation', to: '0 360 0', loop: true, dur: 10000, easing: 'linear'});
 
 	// crunch for setting rotational coordinates for portals
-	var base = document.createElement('a-box');
-	var target = document.createElement('a-torus-knot');
+	var base = this.el;
+	var target = document.createElement('a-sphere');
+    target.setAttribute('animation', {property: 'rotation', to: '0 360 0', loop: true, dur: 10000, easing: 'linear'});
+
+	console.log('target', target);
 	base.appendChild(target);
-	document.querySelector('a-scene').appendChild(base);
+	target.object3D.scale.x = 10;
+	target.object3D.scale.y = 10;
+	target.object3D.scale.z = 10;
 	target.object3D.position.z = -100;
+
+	target.setAttribute('material', {src: data.src});
 	
 	console.log('children', base.getChildren());
 
@@ -26,8 +32,6 @@ init: function () {
 	console.log(data.to, base.object3D.rotation);
 	// get target's world position
 	
-	target = document.querySelector('a-torus-knot');
-	base.play();
 	var w_pos = target.object3D.getWorldPosition();
 
 	// TBD World to local transform if sky is rotated
@@ -45,17 +49,18 @@ init: function () {
 },
 update: function () {
 	var data = this.data;
-	var el = this.el;
+	var el = this.el.querySelector('a-sphere');
 	var flag = false;
 	var timer;
 
-    var parel = el.parentEl;
+    var parel = this.el.parentEl;
+	console.log('parel', parel.id, parel);
 	// get element to dissapear gradualy
     var sky = parel.querySelector('a-sky');
       
 	el.addEventListener('mouseenter', () => {
 		flag = true;
-	if (el.parentEl.getAttribute('visible')) {
+	if (parel.getAttribute('visible')) {
 		setTimeout(changeScene, 800);
         timer = setInterval(function () {
 	    sky.components.material.material.opacity = sky.components.material.material.opacity * 0.9;
@@ -93,7 +98,7 @@ update: function () {
 			parel.object3D.scale.y = 0;
 			parel.object3D.scale.z = 0;
 			
-			document.getElementById(el.parentEl.id).setAttribute('visible', 'false');
+			document.getElementById(parel.id).setAttribute('visible', 'false');
 
 			el.object3D.scale.x = 1;
 			el.object3D.scale.y = 1;
