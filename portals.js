@@ -1,17 +1,53 @@
 AFRAME.registerComponent('portal', {
 schema: {
     to: {type: 'string'},
+	x: {type: 'float'},
+	y: {type: 'float'}
 },
 init: function () {
     var el = this.el;
+	var data = this.data;
     el.setAttribute('animation', {property: 'rotation', to: '0 360 0', loop: true, dur: 10000, easing: 'linear'});
+
+	// crunch for setting rotational coordinates for portals
+	var base = document.createElement('a-box');
+	var target = document.createElement('a-torus-knot');
+	base.appendChild(target);
+	document.querySelector('a-scene').appendChild(base);
+	target.object3D.position.z = -100;
+	
+	console.log('children', base.getChildren());
+
+	// set base rotation
+	console.log("dataxy", data.to, data.x, data.y);
+	base.object3D.rotation.x = data.x;
+	base.object3D.rotation.y = data.y;
+	
+	console.log(data.to, base.object3D.rotation);
+	// get target's world position
+	
+	target = document.querySelector('a-torus-knot');
+	base.play();
+	var w_pos = target.object3D.getWorldPosition();
+
+	// TBD World to local transform if sky is rotated
+
+	// set portal position accordingly
+	console.log("this el: ");
+	console.log(el);
+	console.log("world", w_pos);
+	console.log(el.object3D.position);
+
+	el.object3D.position.x = w_pos.x;
+	el.object3D.position.y = w_pos.y;
+	el.object3D.position.z = w_pos.z;
+	
 },
 update: function () {
-  var data = this.data;
-  var el = this.el;  // <a-sphere>
-  var flag = false;
-  var timer;
-
+	var data = this.data;
+	var el = this.el;
+	var flag = false;
+	var timer;
 
     var parel = el.parentEl;
 	// get element to dissapear gradualy
@@ -30,7 +66,7 @@ update: function () {
 		    clearInterval(timer);
 		    sky.components.material.material.opacity = 1;
 	    } 
-    }, 50);
+    }, 42);
 	}
       });
 	el.addEventListener('mouseleave', () => {
@@ -41,28 +77,30 @@ update: function () {
 	    clearInterval(timer);
 	    sky.components.material.material.opacity = 1;
       });
-      function changeScene() {
-	  if (flag) {
-		flag = false;
-		el.object3D.scale.x = 1;
-		el.object3D.scale.y = 1;
-		el.object3D.scale.z = 1;
+    function changeScene() {
+		if (flag) {
+			flag = false;
 
-	// get the entity out of the way
-	parel.object3D.scale.x = 0;
-	parel.object3D.scale.y = 0;
-	parel.object3D.scale.z = 0;
-    var toel = document.getElementById(data.to);
-	
-	toel.object3D.scale.x = 1;
-	toel.object3D.scale.y = 1;
-	toel.object3D.scale.z = 1;
-    toel.setAttribute('visible', 'true');
-    
-    document.getElementById(el.parentEl.id).setAttribute('visible', 'false');
-	  };
-	     }
+			var toel = document.getElementById(data.to);
+			
+			toel.object3D.scale.x = 1;
+			toel.object3D.scale.y = 1;
+			toel.object3D.scale.z = 1;
+			toel.setAttribute('visible', 'true');
+
+			// get the entity out of the way
+			parel.object3D.scale.x = 0;
+			parel.object3D.scale.y = 0;
+			parel.object3D.scale.z = 0;
+			
+			document.getElementById(el.parentEl.id).setAttribute('visible', 'false');
+
+			el.object3D.scale.x = 1;
+			el.object3D.scale.y = 1;
+			el.object3D.scale.z = 1;
+		};
+    }
 	    
-	}
+}
 });
 

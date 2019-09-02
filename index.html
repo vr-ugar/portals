@@ -2,48 +2,39 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>portal component</title>
+    <title>portals</title>
     <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
     <script src="portals.js"></script>
+    <script src="a-portal.js"></script>
+    <script src="primitive.js"></script>
   </head>
   
   <body>
     <a-scene background="color: orange" loading-screen="dotsColor: orange; backgroundColor: black">
       <a-assets>
 	      <img id="4" src="assets/4.jpg">
-	      <img id="1" src="assets/1.jpg">
-	      <img id="5" src="assets/5.jpg">
-	      <img id="2" src="assets/2.jpg">
-	      <img id="3" src="assets/3.jpg">
-	      <img id="6" src="assets/6.jpg">
           <img id="top" src="assets/top.jpg">
-          <audio id="sound" src="assets/sound.mp3" preload="auto" loop="true"></audio>
       </a-assets>
 
       <a-camera><a-cursor visible="true" color="red"></a-cursor>
-
-      <a-sound src="#sound" autoplay="true" loop="true" positional="false" position="0 2 -1"></a-sound>
       </a-camera>
 
       <a-entity id="loc_top" visible="true">
       <a-sky material="src: #top"></a-sky>
-        <a-sphere 
-            radius="8"
-            position="11 -30 -80" 
-            material="src: #4" 
-            portal="to: loc_4; x: 100, y: 200"> 
-        </a-sphere>
+
+        <a-portal
+            src="#top"
+			x=0.26
+			y=-2.24
+            to="loc_4"
+            >
+        </a-portal>
+
 
     </a-entity>
 
       <a-entity id="loc_4" visible="false">
       <a-sky material="src: #4"></a-sky>
-        <a-sphere 
-            radius="10"
-            position="11 -10 -80" 
-            material="src: #top" 
-            portal="to: loc_top"> 
-        </a-sphere>
 
     </a-entity>
     </a-scene>
