@@ -6,7 +6,7 @@
     <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
     <script src="portals.js"></script>
     <script src="a-portal.js"></script>
-    <script src="primitive.js"></script>
+    <script src="aim.js"></script>
   </head>
   
   <body>
@@ -16,7 +16,7 @@
           <img id="top" src="assets/top.jpg">
       </a-assets>
 
-      <a-camera><a-cursor visible="true" color="red"></a-cursor>
+      <a-camera position="0 0 0" aim><a-cursor visible="true" color="red"></a-cursor>
       </a-camera>
 
       <a-entity id="loc_top" visible="true">
@@ -35,6 +35,13 @@
 
       <a-entity id="loc_4" visible="false">
       <a-sky material="src: #4"></a-sky>
+		<a-portal
+			src="#4"
+			x="1.57"
+			y="0.13"
+			to="loc_top"
+			>
+		</a-portal>
 
     </a-entity>
     </a-scene>

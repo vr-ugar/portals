@@ -15,9 +15,9 @@ init: function () {
 
 	console.log('target', target);
 	base.appendChild(target);
-	target.object3D.scale.x = 10;
-	target.object3D.scale.y = 10;
-	target.object3D.scale.z = 10;
+	target.object3D.scale.x = 12;
+	target.object3D.scale.y = 12;
+	target.object3D.scale.z = 12;
 	target.object3D.position.z = -100;
 
 	target.setAttribute('material', {src: data.src});
@@ -37,14 +37,6 @@ init: function () {
 	// TBD World to local transform if sky is rotated
 
 	// set portal position accordingly
-	console.log("this el: ");
-	console.log(el);
-	console.log("world", w_pos);
-	console.log(el.object3D.position);
-
-	el.object3D.position.x = w_pos.x;
-	el.object3D.position.y = w_pos.y;
-	el.object3D.position.z = w_pos.z;
 	
 },
 update: function () {
@@ -76,9 +68,9 @@ update: function () {
       });
 	el.addEventListener('mouseleave', () => {
 	flag = false;
-		el.object3D.scale.x = 1;
-		el.object3D.scale.y = 1;
-		el.object3D.scale.z = 1;
+		el.object3D.scale.x = 12;
+		el.object3D.scale.y = 12;
+		el.object3D.scale.z = 12;
 	    clearInterval(timer);
 	    sky.components.material.material.opacity = 1;
       });
