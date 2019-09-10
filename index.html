@@ -16,7 +16,9 @@
           <img id="top" src="assets/top.jpg">
       </a-assets>
 
-      <a-camera position="0 0 0" aim><a-cursor visible="true" color="red"></a-cursor>
+      <a-camera position="0 0 0" wasd-controls="enabled: false">
+	  <a-cursor visible="true" color="red"></a-cursor>
+	  <a-entity position="0 0 -10" color="orange" aim>
       </a-camera>
 
       <a-entity id="loc_top" visible="true">
@@ -24,24 +26,22 @@
 
         <a-portal
             src="#top"
-			x=0.26
-			y=-2.24
             to="loc_4"
+			position="8.90 -3.5 -2.67"
             >
         </a-portal>
-
 
     </a-entity>
 
       <a-entity id="loc_4" visible="false">
       <a-sky material="src: #4"></a-sky>
 		<a-portal
-			src="#4"
-			x="1.57"
-			y="0.13"
+			src="#top"
 			to="loc_top"
+			position="7.99 3.26 5.05"
 			>
 		</a-portal>
+
 
     </a-entity>
     </a-scene>

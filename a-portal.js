@@ -7,9 +7,7 @@ AFRAME.registerPrimitive('a-portal', extendDeep({}, meshMixin, {
     },
     mappings: {
         to: 'portal.to',
-		x: 'portal.x',
-		y: 'portal.y',
-        src: 'portal.src' 
+        src: 'portal.src'
     }
 }));
 
