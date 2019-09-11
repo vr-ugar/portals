@@ -1,42 +1,20 @@
 AFRAME.registerComponent('portal', {
 schema: {
-    to: {type: 'string'},
-	x: {type: 'float'},
-	y: {type: 'float'}
+    to: {type: 'string'}
 },
 init: function () {
     var el = this.el;
 	var data = this.data;
 
-	// crunch for setting rotational coordinates for portals
-	var base = this.el;
 	var target = document.createElement('a-sphere');
     target.setAttribute('animation', {property: 'rotation', to: '0 360 0', loop: true, dur: 10000, easing: 'linear'});
-
-	console.log('target', target);
-	base.appendChild(target);
-	target.object3D.scale.x = 12;
-	target.object3D.scale.y = 12;
-	target.object3D.scale.z = 12;
-	target.object3D.position.z = -100;
+	el.appendChild(target);
+	target.object3D.scale.x = 1;
+	target.object3D.scale.y = 1;
+	target.object3D.scale.z = 1;
 
 	target.setAttribute('material', {src: data.src});
 	
-	console.log('children', base.getChildren());
-
-	// set base rotation
-	console.log("dataxy", data.to, data.x, data.y);
-	base.object3D.rotation.x = data.x;
-	base.object3D.rotation.y = data.y;
-	
-	console.log(data.to, base.object3D.rotation);
-	// get target's world position
-	
-	var w_pos = target.object3D.getWorldPosition();
-
-	// TBD World to local transform if sky is rotated
-
-	// set portal position accordingly
 	
 },
 update: function () {
@@ -68,9 +46,9 @@ update: function () {
       });
 	el.addEventListener('mouseleave', () => {
 	flag = false;
-		el.object3D.scale.x = 12;
-		el.object3D.scale.y = 12;
-		el.object3D.scale.z = 12;
+		el.object3D.scale.x = 1;
+		el.object3D.scale.y = 1;
+		el.object3D.scale.z = 1;
 	    clearInterval(timer);
 	    sky.components.material.material.opacity = 1;
       });
