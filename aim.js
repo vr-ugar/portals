@@ -3,6 +3,7 @@ AFRAME.registerComponent('aim', {
   init: function () {
     var el = this.el;
     var text = document.createElement('a-text');
+	text.setAttribute('scale', '0.5 0.5 0.5');
     text.setAttribute('value', "0 0");
     text.setAttribute('position', "0 0 9.5");
     text.setAttribute('color', "purple");
